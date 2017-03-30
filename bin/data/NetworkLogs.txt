@@ -1,0 +1,22 @@
+
+
+--------------------------------------- 2017-03-30-19-32-10-986
+[ error ] RtApiCore::probeDeviceOpen: the device (2) does not support the requested channel count.
+[notice ] Reading file /Users/Guillem/OF_v0.9.0/apps/myApps/EssenciaCaldea/bin/data/note1.wav
+[ error ] Error opening file. File not loaded.
+[notice ] Reading file /Users/Guillem/OF_v0.9.0/apps/myApps/EssenciaCaldea/bin/data/note1.wav
+[ error ] Error opening file. File not loaded.
+[notice ] Reading file /Users/Guillem/OF_v0.9.0/apps/myApps/EssenciaCaldea/bin/data/note1.wav
+[ error ] Error opening file. File not loaded.
+[notice ] Reading file /Users/Guillem/OF_v0.9.0/apps/myApps/EssenciaCaldea/bin/data/HornsRapid.wav
+[ error ] Error opening file. File not loaded.
+[notice ] ofSoundStreamListDevices: 
+[0] Apple Inc.: Built-in Microphone [in:2 out:0] (default in)
+[1] Apple Inc.: Built-in Output [in:0 out:2] (default out)
+[2] ma++ ingalls for Cycling '74: Soundflower (2ch) [in:2 out:2]
+[3] ma++ ingalls for Cycling '74: Soundflower (64ch) [in:64 out:64]
+[4] Apple Inc.: After Effects 12.2 [in:2 out:2]
+[5] Apple Inc.: Premiere Pro 7.0 [in:0 out:0]
+[6] Apple Inc.: Premiere Pro 8.0 [in:0 out:0]
+[7] Apple Inc.: reaktor [in:2 out:2]
+
