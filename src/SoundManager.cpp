@@ -22,8 +22,9 @@ void SoundManager::setup(){
     ofSoundStreamListDevices();
 
     
-    mySoundStream.setDeviceID(2);
-    mySoundStream.setup(4, 0, sampleRate, 256, 4);
+    mySoundStream.setDeviceID(1);
+    //mySoundStream.setup(4, 0, sampleRate, 256, 4);
+    mySoundStream.setup(2, 0, sampleRate, 256, 4);
     
     mySoundStream.setOutput(this);
     
@@ -117,8 +118,8 @@ void SoundManager::audioRequested 	(float * output, int bufferSize, int nChannel
     {
         audio1[i] = output[i*nChannels    ] = sample1.update();
         audio2[i] = output[i*nChannels + 1] = sample2.update();
-        audio3[i] = output[i*nChannels + 2] = sample3.update();
-        audio4[i] = output[i*nChannels + 3] = sample4.update();
+        //audio3[i] = output[i*nChannels + 2] = sample3.update();
+        //audio4[i] = output[i*nChannels + 3] = sample4.update();
         
     }
     

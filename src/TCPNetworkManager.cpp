@@ -37,6 +37,7 @@ void TCPNetworkManager::setup(){
 
 void TCPNetworkManager::update(){
     
+    
     //could not bind to port....////////////////////////////////////////////////////////////
     if (!TCP.isConnected() &&  (ofGetElapsedTimef()-lastTimeConnection) >= RECONNECT_TIME){
         lastTimeConnection = ofGetElapsedTimef();
@@ -95,7 +96,7 @@ void TCPNetworkManager::update(){
                     str.erase(0, 1);
                     storeHR = atoi(str.c_str());
                     
-                    // Passar BPM a usuari
+                    // Passar BPM i ID a usuari
                     if (storeHR != 0){
                         for (int j = 0; j < myUsers.size(); j++){
                             if (myUsers[j]->getClientPosition() == i){

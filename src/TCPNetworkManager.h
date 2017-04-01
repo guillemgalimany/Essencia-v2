@@ -40,6 +40,7 @@ public:
     ofEvent<char> triggerToApp;
     
     int getClientsConnected(){return numClientsConnected;};
+    int getUsersConnected(){return myUsers.size();};
     void listenClients(pair <char,int> &a);
     
 };

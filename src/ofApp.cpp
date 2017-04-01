@@ -22,6 +22,31 @@ void ofApp::update(){
     ofBackground(20, 20, 20);
     
     TCPManager.update();
+    numUsersConnected = TCPManager.getUsersConnected();
+    
+    
+    switch (numUsersConnected) {
+        case 0:
+            //Sonar audio fons
+            //Llums fons a tope
+            break;
+        case 1:
+            //soundManager.stopSound
+            //Llums fons intensitat 1
+            break;
+        case 2:
+            //soundManager.stopSound
+            //Llums fons intensitat 2
+            break;
+        case 3:
+            //soundManager.stopSound
+            //Llums fons intensitat 3
+            break;
+            
+        default:
+            break;
+    }
+    
 };
 
 
