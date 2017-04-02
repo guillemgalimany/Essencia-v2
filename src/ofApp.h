@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "TCPNetworkManager.h"
 #include "SoundManager.h"
+#include "LightManager.h"
+#include "SignalGenerator.h"
 
 
 
@@ -20,10 +22,16 @@ public:
     
     SoundManager soundManager;
     
+    LightManager manager;
+
+    
     TCPNetworkManager TCPManager;
     void triggerSoundLights(char & clientID); //funcio que es crida quan algu envia un event
     
     
     int numUsersConnected = 0;
+    
+    
+    
     
 };
