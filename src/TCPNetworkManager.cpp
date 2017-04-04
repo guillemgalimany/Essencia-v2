@@ -24,7 +24,7 @@ void TCPNetworkManager::setup(){
     
     
     //OFLOG
-    ofLogToFile("NetworkLogs.txt",false);
+    //ofLogToFile("NetworkLogs.txt",false);
     
     timeSinceLastAlive.resize(35,0);
     
