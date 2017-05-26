@@ -31,6 +31,8 @@ public:
     
     int numUsersConnected = 0;
     
+    bool firstUpdate = true;
+    
     
     
     

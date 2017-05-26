@@ -119,6 +119,16 @@ void ColorLight::SetColor(ofColor color, float fadeTime){
     Tweenzor::add(g,initColorG , color.g, 0.0, fadeTime, EASE_LINEAR);
     Tweenzor::add(b,initColorB , color.b, 0.0, fadeTime, EASE_LINEAR);
     
+    if (fadeTime == 0)
+    {
+        *r = color.r;
+        *g = color.g;
+        *b = color.b;
+        if (this->i)
+            *i = myColor.a;
+    
+    }
+    
 
 }
 
