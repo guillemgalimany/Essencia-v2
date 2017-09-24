@@ -38,23 +38,23 @@ void SoundManager::setup(){
     
     
     
-    sample1.load("Heartbeat.wav"); // supports mono or stereo .wav files
+    sample1.load("IniciCAT.wav"); // supports mono or stereo .wav files
     sample1.setLooping(false);
 
     sample1.setSpeed(2);
     
     
-    sample2.load("Heartbeat.wav"); // supports mono or stereo .wav files
+    sample2.load("IniciESP.wav"); // supports mono or stereo .wav files
     sample2.setLooping(false);
     sample2.setSpeed(2);
     
     
-    sample3.load("Heartbeat.wav"); // supports mono or stereo .wav files
+    sample3.load("FinalCAT.wav"); // supports mono or stereo .wav files
     sample3.setLooping(false);
     sample3.setSpeed(2);
     
     
-    sample4.load("Essencia_ambient.wav"); // supports mono or stereo .wav files
+    sample4.load("FinalESP.wav"); // supports mono or stereo .wav files
     sample4.setLooping(true);
     sample4.play();
     sample4.setSpeed(2);
