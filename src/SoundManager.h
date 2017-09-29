@@ -29,23 +29,24 @@ public:
     
     void audioRequested 	(float * input, int bufferSize, int nChannels);
     
-    void playSound(char clientID); //funcio que es crida quan algu envia un event
+    void playWelcomeSound(char clientID); //funcio que es crida quan algu envia un event
+    void stopAllSounds(char clientID); //funcio que es crida quan algu envia un event
 
     
     ofSoundStream mySoundStream;
     
     int		bufferSamples;
     
-    float 	* audio1;
-    float   * audio2;
-    float   * audio3;
-    float   * audio4;
+    float 	* audioCh1;
+    float   * audioCh2;
+
     
     
-    Sample sample1;
-    Sample sample2;
-    Sample sample3;
-    Sample sample4;
+    Sample welcomeAudio;
+    Sample audioL;
+    Sample audioR;
+    
+    vector<Sample> HeartRateAudios;
     
     
 

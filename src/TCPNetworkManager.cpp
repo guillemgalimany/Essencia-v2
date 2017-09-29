@@ -108,28 +108,31 @@ void TCPNetworkManager::update(){
                     }
                     
                     // Create user
-                    if (storeID == 'Y' && storeHR == 0){
+                    //if (storeID == 'Y' && storeHR == 0){
+                    if (storeHR == 0){
                             myUsers.push_back((shared_ptr<User>)new User(storeID, i));
-                            //ofAddListener(myUsers.back()->trigger, this, &TCPNetworkManager::listenClients);
-                            ofAddListener(myUsers.back()->startSong, this, &TCPNetworkManager::eventToOfApp);
+                            ofAddListener(myUsers.back()->trigger, this, &TCPNetworkManager::eventToOfApp);
                             timeSinceLastHR.push_back(int());
                             timeSinceLastHR.back() = ofGetElapsedTimef();
                             pair <char,int> tempPair;
-                            //tempPair.first = storeID;     el primer es una Y....
-                            //tempPair.second = heartRateMean;
-
-                            tempPair.first = 'L';     //el primer es una Y....
+                            tempPair.first = storeID;
                             tempPair.second = storeHR;
                             ofNotifyEvent(triggerToApp, tempPair);
                         }
                         
-                    // Delete user ------------------------------------------ DELETE LISTENER?
-                    if (storeID == 'Z' && storeHR == 0) {
+                    // Delete user ------------------------------------------
+                    //if (storeID == 'Z' && storeHR == 0) {
+                    if (storeHR == 300) {
                             for (int j = 0; j < myUsers.size(); j++){
                                 if (myUsers[j]->getClientPosition() == i) {
+                                    // abans d'eliminar usuari, fer trigger final!
                                     myUsers.erase(myUsers.begin()+j);
                                     timeSinceLastHR.erase(timeSinceLastHR.begin()+j);
                                     cout << "User deleted" << endl;
+                                    pair <char,int> tempPair;
+                                    tempPair.first = storeID;
+                                    tempPair.second = storeHR;
+                                    ofNotifyEvent(triggerToApp, tempPair);
                                 }
                             }
                     }
@@ -160,8 +163,6 @@ void TCPNetworkManager::update(){
 
 //
 void TCPNetworkManager::eventToOfApp(pair <char,int> &a){
-    char userID = a.first;
-    int songName = a.second;
     ofNotifyEvent(triggerToApp, a);
 };
 

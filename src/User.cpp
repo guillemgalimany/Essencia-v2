@@ -17,6 +17,7 @@ User::User(char ID_, int clientPosition_){
     startThread();
     heartRateSec = (60.0/(float)heartRate) * 1000.0;
     heartRateVec.resize(maxSizeMeanVec);
+
 };
 
 
@@ -34,7 +35,7 @@ void User::setHR(int HR){
         pair <char,int> tempPair;
         tempPair.first = ID;
         tempPair.second = heartRateMean;
-        ofNotifyEvent(startSong, tempPair);
+        ofNotifyEvent(trigger, tempPair);
         counter++;
     
     }
@@ -55,7 +56,7 @@ void User::threadedFunction()
         pair <char,int> tempPair;
         tempPair.first = ID;
         tempPair.second = clientPosition;
-        ofNotifyEvent(trigger, tempPair);
+        //ofNotifyEvent(trigger, tempPair);
         
         sleep(heartRateSec);
         

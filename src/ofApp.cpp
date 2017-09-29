@@ -99,18 +99,23 @@ void ofApp::triggerSoundLights(pair <char,int> &a){
     //Comparar el char que tinc com a index (es pot passar un int amb la posicio, ara es passa una R,M,L)
     cout << "Light on" << endl;
     
-    char clientID = a.first;
-    soundManager.playSound(clientID);
+    char ID = a.first;
+    int typeTrigger = a.second;
     
-    if (clientID == 'L')
+    if (typeTrigger == 0)
+        soundManager.playWelcomeSound(ID);
+    else if (typeTrigger == 300)
+        soundManager.stopAllSounds(ID);
+    
+    if (ID == 'L')
     {
         manager.makeGroupBeatColor(0, ofColor(255,0,30), ofColor(8,0,1), 0.3 );
     }
-    if (clientID == 'M')
+    if (ID == 'M')
     {
         manager.makeGroupBeatColor(1, ofColor(255,0,51), ofColor(5,0,1), 0.3 );
     }
-    if (clientID == 'R')
+    if (ID == 'R')
     {
         manager.makeGroupBeatColor(2, ofColor(255,0,42), ofColor(6,0,1), 0.3 );
     }

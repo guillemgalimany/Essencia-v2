@@ -32,38 +32,28 @@ void SoundManager::setup(){
     ofBackground(255,255,255);
     ofSetFrameRate(30);
     
-    audio1 = new float[256];
-    audio2 = new float[256];
-    audio3 = new float[256];
-    audio4 = new float[256];
+    audioCh1 = new float[256];
+    audioCh2 = new float[256];
     
     
+    welcomeAudio.load("IniciCAT.wav"); // supports mono or stereo .wav files
+    welcomeAudio.setLooping(false);
+    welcomeAudio.setSpeed(1);
+    ofLogNotice() << welcomeAudio.getSummary();
     
-    sample1.load("IniciCAT.wav"); // supports mono or stereo .wav files
-    sample1.setLooping(false);
-    sample1.setSpeed(1);
-    ofLogNotice() << sample1.getSummary();
-    
-    
-    sample2.load("IniciESP.wav"); // supports mono or stereo .wav files
-    sample2.setLooping(false);
-    sample2.setSpeed(1);
-    ofLogNotice() << sample2.getSummary();
+    audioL.load("IniciCAT.wav"); // supports mono or stereo .wav files
+    audioL.setLooping(false);
+    audioL.setSpeed(1);
+    ofLogNotice() << audioL.getSummary();
     
     
-//    sample3.load("FinalCAT.wav"); // supports mono or stereo .wav files
-//    sample3.setLooping(false);
-//    sample3.setSpeed(2);
-//    
-//    
-//    sample4.load("FinalESP.wav"); // supports mono or stereo .wav files
-//    sample4.setLooping(true);
-//    sample4.play();
-//    sample4.setSpeed(2);
+    audioR.load("IniciESP.wav"); // supports mono or stereo .wav files
+    audioR.setLooping(false);
+    audioR.setSpeed(1);
+    ofLogNotice() << audioR.getSummary();
     
+
     
-    
-    //ofSoundStreamSetup2(4, 0, this, sampleRate, 256, 4, 2);
 
     
     
@@ -81,18 +71,31 @@ void SoundManager::setup(){
     
 }
 
-void SoundManager::playSound(char clientID)
+void SoundManager::playWelcomeSound(char clientID)
 {
 
-    if( clientID == 'L')
-        sample1.play();
-
-    if( clientID == 'M')
-        sample2.play();
+    if( clientID == 'L') {
+        audioL = welcomeAudio;
+        audioL.play();
+    }
     
-    if( clientID == 'R')
-        sample3.play();
-        
+
+    if( clientID == 'R') {
+        audioR = welcomeAudio;
+        audioR.play();
+    }
+}
+
+void SoundManager::stopAllSounds(char clientID){
+    
+    if( clientID == 'L') {
+        audioL.stop();
+    }
+    
+    
+    if( clientID == 'R') {
+        audioR.stop();
+    }
 
 }
 
@@ -101,10 +104,8 @@ void SoundManager::audioRequested 	(float * output, int bufferSize, int nChannel
     
     for (int i = 0; i < bufferSize; i++)
     {
-        audio1[i] = output[i * nChannels    ] = sample1.update();
-        audio2[i] = output[i * nChannels + 1] = sample2.update();
-        //audio3[i] = output[i * nChannels + 2] = sample3.update();
-        //audio4[i] = output[i * nChannels + 3] = sample4.update();
+        audioCh1[i] = output[i * nChannels    ] = audioL.update();
+        audioCh2[i] = output[i * nChannels + 1] = audioR.update();
         
     }
     
