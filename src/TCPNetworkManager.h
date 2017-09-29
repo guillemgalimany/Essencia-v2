@@ -37,11 +37,12 @@ public:
     vector<shared_ptr<User>> myUsers;
     vector<int> timeSinceLastAlive;
     vector<int> timeSinceLastHR;
-    ofEvent<char> triggerToApp;
+    ofEvent <pair<char,int>> triggerToApp;
     
     int getClientsConnected(){return numClientsConnected;};
     int getUsersConnected(){return myUsers.size();};
-    void listenClients(pair <char,int> &a);
+    //void listenClients(pair <char,int> &a);
+    void eventToOfApp(pair <char,int> &a);
     
 };
 #endif /* TCPNetworkManager_hpp */

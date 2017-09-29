@@ -110,9 +110,17 @@ void TCPNetworkManager::update(){
                     // Create user
                     if (storeID == 'Y' && storeHR == 0){
                             myUsers.push_back((shared_ptr<User>)new User(storeID, i));
-                            ofAddListener(myUsers.back()->trigger, this, &TCPNetworkManager::listenClients);
+                            //ofAddListener(myUsers.back()->trigger, this, &TCPNetworkManager::listenClients);
+                            ofAddListener(myUsers.back()->startSong, this, &TCPNetworkManager::eventToOfApp);
                             timeSinceLastHR.push_back(int());
                             timeSinceLastHR.back() = ofGetElapsedTimef();
+                            pair <char,int> tempPair;
+                            //tempPair.first = storeID;     el primer es una Y....
+                            //tempPair.second = heartRateMean;
+
+                            tempPair.first = 'L';     //el primer es una Y....
+                            tempPair.second = storeHR;
+                            ofNotifyEvent(triggerToApp, tempPair);
                         }
                         
                     // Delete user ------------------------------------------ DELETE LISTENER?
@@ -141,14 +149,21 @@ void TCPNetworkManager::update(){
 
 
 //
-void TCPNetworkManager::listenClients(pair <char,int> &a){
-    char clientID = a.first;
-    TCP.send(a.second, "A");
-    cout<< "vibra!!" << endl;
-    //Event cap a ofApp
-    ofNotifyEvent(triggerToApp, clientID);
-};
+//void TCPNetworkManager::listenClients(pair <char,int> &a){
+//    char clientID = a.first;
+//    //TCP.send(a.second, "A");
+//    //cout<< "vibra!!" << endl;
+//    //Event cap a ofApp: ofApp esta escoltant triggerToApp
+//    ofNotifyEvent(triggerToApp, clientID);
+//};
 
+
+//
+void TCPNetworkManager::eventToOfApp(pair <char,int> &a){
+    char userID = a.first;
+    int songName = a.second;
+    ofNotifyEvent(triggerToApp, a);
+};
 
 
 void TCPNetworkManager::close(){

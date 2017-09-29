@@ -24,7 +24,8 @@ void SoundManager::setup(){
     
     mySoundStream.setDeviceID(1);
     //mySoundStream.setup(4, 0, sampleRate, 256, 4);
-    mySoundStream.setup(4, 0, sampleRate, 256, 4);
+    //mySoundStream.setup(4, 0, sampleRate, 256, 4);
+    mySoundStream.setup(2, 0, sampleRate, 256, 2);
     
     mySoundStream.setOutput(this);
     
@@ -40,24 +41,25 @@ void SoundManager::setup(){
     
     sample1.load("IniciCAT.wav"); // supports mono or stereo .wav files
     sample1.setLooping(false);
-
-    sample1.setSpeed(2);
+    sample1.setSpeed(1);
+    ofLogNotice() << sample1.getSummary();
     
     
     sample2.load("IniciESP.wav"); // supports mono or stereo .wav files
     sample2.setLooping(false);
-    sample2.setSpeed(2);
+    sample2.setSpeed(1);
+    ofLogNotice() << sample2.getSummary();
     
     
-    sample3.load("FinalCAT.wav"); // supports mono or stereo .wav files
-    sample3.setLooping(false);
-    sample3.setSpeed(2);
-    
-    
-    sample4.load("FinalESP.wav"); // supports mono or stereo .wav files
-    sample4.setLooping(true);
-    sample4.play();
-    sample4.setSpeed(2);
+//    sample3.load("FinalCAT.wav"); // supports mono or stereo .wav files
+//    sample3.setLooping(false);
+//    sample3.setSpeed(2);
+//    
+//    
+//    sample4.load("FinalESP.wav"); // supports mono or stereo .wav files
+//    sample4.setLooping(true);
+//    sample4.play();
+//    sample4.setSpeed(2);
     
     
     
@@ -91,35 +93,18 @@ void SoundManager::playSound(char clientID)
     if( clientID == 'R')
         sample3.play();
         
-        
-
-
 
 }
 
-
-//--------------------------------------------------------------
-//void SoundManager::exit(){
-//    ofSoundStreamStop();
-//    ofSoundStreamClose();
-//    delete audio1;
-//    delete audio2;
-//    delete audio3;
-//    delete audio4;
-//    
-//    
-//}
-
-//--------------------------------------------------------------
 
 void SoundManager::audioRequested 	(float * output, int bufferSize, int nChannels){
     
     for (int i = 0; i < bufferSize; i++)
     {
-        audio1[i] = output[i*nChannels    ] = sample1.update();
-        audio2[i] = output[i*nChannels + 1] = sample2.update();
-        audio3[i] = output[i*nChannels + 2] = sample3.update();
-        audio4[i] = output[i*nChannels + 3] = sample4.update();
+        audio1[i] = output[i * nChannels    ] = sample1.update();
+        audio2[i] = output[i * nChannels + 1] = sample2.update();
+        //audio3[i] = output[i * nChannels + 2] = sample3.update();
+        //audio4[i] = output[i * nChannels + 3] = sample4.update();
         
     }
     

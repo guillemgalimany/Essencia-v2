@@ -29,7 +29,12 @@ public:
     int clientPosition;
     int heartRate = 75;
     float heartRateSec = 100;     //in millis!
+    int heartRateMean = 80;
+    vector<int> heartRateVec;           // en veritat aquest vector no cal, el fem servir només per consultar...
     ofEvent<pair <char,int>> trigger;
+    ofEvent<pair <char,int>> startSong;
+    int maxSizeMeanVec = 10;
+    int counter = 0;
     
     void setHR(int HR);
     void setID(char ID_);

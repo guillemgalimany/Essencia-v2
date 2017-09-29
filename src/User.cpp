@@ -16,18 +16,35 @@ User::User(char ID_, int clientPosition_){
     clientPosition = clientPosition_;
     startThread();
     heartRateSec = (60.0/(float)heartRate) * 1000.0;
+    heartRateVec.resize(maxSizeMeanVec);
 };
 
 
 void User::setHR(int HR){
-    
     heartRate = HR;
     heartRateSec = (60.0/(float)heartRate) * 1000.0;
-}
+    
+    if (counter < maxSizeMeanVec){
+        heartRateVec[counter] = HR;
+        heartRateMean = heartRateMean + HR;
+        counter++;
+    }
+    else if (counter == maxSizeMeanVec){
+        heartRateMean = heartRateMean/maxSizeMeanVec;
+        pair <char,int> tempPair;
+        tempPair.first = ID;
+        tempPair.second = heartRateMean;
+        ofNotifyEvent(startSong, tempPair);
+        counter++;
+    
+    }
+    
+    
+};
 
 void User::setID(char ID_){
     ID = ID_;
-}
+};
 
 
 
@@ -44,4 +61,4 @@ void User::threadedFunction()
         
     }
     
-}
+};

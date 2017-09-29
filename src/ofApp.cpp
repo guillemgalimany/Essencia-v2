@@ -26,8 +26,6 @@ void ofApp::setup(){
     
     manager.setGroupColor(2, ofColor(6,0,1), 0.0, 0);
 
-    
-
 
 
 }
@@ -96,10 +94,12 @@ void ofApp::update(){
 };
 
 
-void ofApp::triggerSoundLights(char & clientID){
+void ofApp::triggerSoundLights(pair <char,int> &a){
+    
     //Comparar el char que tinc com a index (es pot passar un int amb la posicio, ara es passa una R,M,L)
     cout << "Light on" << endl;
     
+    char clientID = a.first;
     soundManager.playSound(clientID);
     
     if (clientID == 'L')

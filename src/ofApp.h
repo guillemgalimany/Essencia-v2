@@ -26,7 +26,7 @@ public:
 
     
     TCPNetworkManager TCPManager;
-    void triggerSoundLights(char & clientID); //funcio que es crida quan algu envia un event
+    void triggerSoundLights(pair <char,int> &a); //funcio que es crida quan algu envia un event
     
     
     int numUsersConnected = 0;
