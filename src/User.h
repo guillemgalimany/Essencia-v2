@@ -32,7 +32,7 @@ public:
     int heartRateMean = 80;
     vector<int> heartRateVec;           // en veritat aquest vector no cal, el fem servir només per consultar...
     ofEvent<pair <char,int>> trigger; //ID, heartRate
-    int maxSizeMeanVec = 10;
+    int maxSizeMeanVec = 6;
     int counter = 0;
     
     void setHR(int HR);

@@ -106,6 +106,11 @@ void ofApp::triggerSoundLights(pair <char,int> &a){
         soundManager.playWelcomeSound(ID);
     else if (typeTrigger == 300)
         soundManager.stopAllSounds(ID);
+    else if (typeTrigger != 0 && typeTrigger != 300) {
+        ofLogNotice() << typeTrigger;
+        soundManager.playHeartRateSound(ID, typeTrigger);
+    }
+    
     
     if (ID == 'L')
     {

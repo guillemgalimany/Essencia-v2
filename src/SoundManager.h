@@ -31,6 +31,12 @@ public:
     
     void playWelcomeSound(char clientID); //funcio que es crida quan algu envia un event
     void stopAllSounds(char clientID); //funcio que es crida quan algu envia un event
+    void playHeartRateSound(char clientID, int HR); //funcio que es crida quan algu envia un event
+    
+    
+
+    
+
 
     
     ofSoundStream mySoundStream;

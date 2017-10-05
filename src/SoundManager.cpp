@@ -52,6 +52,21 @@ void SoundManager::setup(){
     audioR.setSpeed(1);
     ofLogNotice() << audioR.getSummary();
     
+    //Read all audios inside bin/data/HeartRateSongs
+    
+    string path = "HeartRateSongs";
+    ofDirectory dir(path);
+    dir.allowExt("wav");                    //only show wav files
+    dir.listDir();                          //populate the directory object
+    
+    HeartRateAudios.resize(dir.size());
+    
+    for(int i = 0; i < dir.size(); i++){
+        HeartRateAudios[i].load(dir.getPath(i));
+        HeartRateAudios[i].setLooping(false);
+        HeartRateAudios[i].setSpeed(1);
+    }
+
 
     
 
@@ -98,6 +113,27 @@ void SoundManager::stopAllSounds(char clientID){
     }
 
 }
+
+void SoundManager::playHeartRateSound(char clientID, int HR){
+    
+    int songIdx = ofMap(HR, 60, 120, 1, HeartRateAudios.size());
+    
+    if( clientID == 'L') {
+        audioL = HeartRateAudios[songIdx];
+        audioL.play();
+    }
+    
+    
+    if( clientID == 'R') {
+        audioR = HeartRateAudios[songIdx];
+        audioR.play();
+    }
+    
+}
+
+
+
+
 
 
 void SoundManager::audioRequested 	(float * output, int bufferSize, int nChannels){
