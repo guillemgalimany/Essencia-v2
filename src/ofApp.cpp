@@ -9,22 +9,16 @@ void ofApp::setup(){
     
     TCPManager.setup();
     ofAddListener(TCPManager.triggerToApp, this, &ofApp::triggerSoundLights);
-    
+
     
     soundManager.setup();
+    ofAddListener(soundManager.audioHasStopped, this, &ofApp::forceDeleteUser);
     
     manager.setup();
     
-    manager.setGroupColor(3, ofColor(255,0,25,255), 0, 0);
-    manager.setGroupColor(3, ofColor(255,0,25,255), 0, 1);
-    manager.setGroupColor(3, ofColor(255,0,25,255), 0, 2);
-    manager.setGroupColor(3, ofColor(255,0,25,255), 0, 3);
     
-    manager.setGroupColor(0, ofColor(8,0,1), 0.0, 0);
+    manager.setGroupColor(0, ofColor(0,255,0), 0.0);
     
-    manager.setGroupColor(1, ofColor(5,0,1), 0.0, 0);
-    
-    manager.setGroupColor(2, ofColor(6,0,1), 0.0, 0);
 
 
 
@@ -43,7 +37,7 @@ void ofApp::update(){
     numUsersConnected = TCPManager.getUsersConnected();
     
     if (firstUpdate){
-        manager.makeGroupFollow(3, 50, 255, STATE_SIN, 1.5, 0, 0.01);
+        manager.makeGroupFollow(0, 50, 255, STATE_SIN, 1.5, 0, 0.01);
         firstUpdate = false;
     }
 
@@ -102,30 +96,46 @@ void ofApp::triggerSoundLights(pair <char,int> &a){
     char ID = a.first;
     int typeTrigger = a.second;
     
-    if (typeTrigger == 0)
+    if (typeTrigger == 0) {
         soundManager.playWelcomeSound(ID);
-    else if (typeTrigger == 300)
+        //manager.makeGroupBeatColor(0, ofColor(255,0,30), ofColor(8,0,1));
+        //manager.setGroupColor(0, ofColor(255,0,0), 0.0, 0);
+        //manager.makeGroupFollow(0, 100, 255,STATE_UPSAW, 2, 0, 0.02);
+        manager.setGroupColor(0, ofColor(0,0,0),1);
+        manager.setGroupColor(0, ofColor(255,0,0),0.5,1);
+    }
+    else if (typeTrigger == 300){
         soundManager.stopAllSounds(ID);
+        manager.setGroupColor(0, ofColor(255,0,0));
+        manager.makeGroupFollow(0, 100, 255,STATE_SIN, 1, 0, 0.02);
+    }
     else if (typeTrigger != 0 && typeTrigger != 300) {
         ofLogNotice() << typeTrigger;
         soundManager.playHeartRateSound(ID, typeTrigger);
+        //manager.makeGroupFollowAudio(0, soundManager.audioCh1);
+        manager.setGroupColor(0, ofColor(0,0,255));
     }
     
     
-    if (ID == 'L')
-    {
-        manager.makeGroupBeatColor(0, ofColor(255,0,30), ofColor(8,0,1), 0.3 );
-    }
-    if (ID == 'M')
-    {
-        manager.makeGroupBeatColor(1, ofColor(255,0,51), ofColor(5,0,1), 0.3 );
-    }
-    if (ID == 'R')
-    {
-        manager.makeGroupBeatColor(2, ofColor(255,0,42), ofColor(6,0,1), 0.3 );
-    }
+//    if (ID == 'L')
+//    {
+//        manager.makeGroupBeatColor(0, ofColor(255,0,30), ofColor(8,0,1), 0.3 );
+//    }
+//    if (ID == 'M')
+//    {
+//        manager.makeGroupBeatColor(1, ofColor(255,0,51), ofColor(5,0,1), 0.3 );
+//    }
+//    if (ID == 'R')
+//    {
+//        manager.makeGroupBeatColor(2, ofColor(255,0,42), ofColor(6,0,1), 0.3 );
+//    }
 
     
+};
+
+
+void ofApp::forceDeleteUser(char &userID){
+    TCPManager.deleteUser(userID);
 };
 
 

@@ -45,6 +45,8 @@ public:
     
     void makeGroupFollow(int groupIndex, int Amin, int Amax, signalState signal, int freq, int phase, float randomComponent, int elementIndex = -1);
     
+    void makeGroupFollowAudio(int groupIndex, float* audioSignal);
+    
     
 private:
     

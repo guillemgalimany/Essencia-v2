@@ -133,18 +133,20 @@ void SoundManager::playHeartRateSound(char clientID, int HR){
 
 
 
-
-
-
 void SoundManager::audioRequested 	(float * output, int bufferSize, int nChannels){
     
     for (int i = 0; i < bufferSize; i++)
     {
         audioCh1[i] = output[i * nChannels    ] = audioL.update();
-        audioCh2[i] = output[i * nChannels + 1] = audioR.update();
-        
+        //audioCh2[i] = output[i * nChannels + 1] = audioR.update();
     }
     
-    
+    if (audioL.getLength() != welcomeAudio.getLength()) {
+        if (!audioL.getIsPlaying()){
+            char ID = 'L';
+            ofNotifyEvent(audioHasStopped,ID);
+            audioL = welcomeAudio;
+        }
+    }
 }
 

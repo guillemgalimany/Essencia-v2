@@ -17,6 +17,7 @@ User::User(char ID_, int clientPosition_){
     startThread();
     heartRateSec = (60.0/(float)heartRate) * 1000.0;
     heartRateVec.resize(maxSizeMeanVec);
+    heartRateMean = 0;
 
 };
 

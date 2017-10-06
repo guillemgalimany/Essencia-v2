@@ -119,3 +119,10 @@ void Group::makeElementsFollow(int Amin, int Amax, signalState signal, int freq,
 
 }
 
+void Group::makeElementsFollowAudio(float *audioSignal){
+    for(int i = 0; i < elements.size(); i++)
+    {
+        elements[i]->FollowAudioSignal(audioSignal);
+    }
+}
+

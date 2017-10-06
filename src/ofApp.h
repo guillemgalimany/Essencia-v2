@@ -28,6 +28,8 @@ public:
     TCPNetworkManager TCPManager;
     void triggerSoundLights(pair <char,int> &a); //funcio que es crida quan algu envia un event
     
+    void forceDeleteUser(char &userID); //funcio que es crida quan SoundManager ha acabat audio final
+    
     
     int numUsersConnected = 0;
     

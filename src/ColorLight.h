@@ -17,7 +17,8 @@ enum colorState
 {
     STATE_FIXED_COLOR,
     STATE_FADING_TO_COLOR,
-    STATE_FOLLOW_COLOR_INTENSITY
+    STATE_FOLLOW_COLOR_INTENSITY,
+    STATE_FOLLOW_AUDIO
 };
 
 
@@ -31,6 +32,8 @@ class ColorLight: public Element {
         float* s = 0;
         float* i = 0;
         float* a = 0;
+    
+        float* myAudioSignal = 0;
     
     
         ofColor myColor = ofColor(0,0,0); // Color
@@ -53,6 +56,8 @@ class ColorLight: public Element {
         void SetColor(ofColor color, float fadeTime);
 
         void FollowSignal(int Amin, int Amax, signalState signal, int freq, int phase, float randomComponent);
+    
+        void FollowAudioSignal(float* audioSignal);
     
     
         void BeatColor(ofColor color, float fadeTime, ofColor baseColor);

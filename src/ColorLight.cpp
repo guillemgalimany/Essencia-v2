@@ -78,6 +78,11 @@ void ColorLight::update(){
                         
             break;
         }
+        case STATE_FOLLOW_AUDIO:{
+            ofLogNotice() << &(myAudioSignal);
+        
+        
+        }
             
         default:
             break;
@@ -158,5 +163,10 @@ void ColorLight::FollowSignal(int Amin, int Amax, signalState signal, int freq, 
     initialColor = myColor;
     myColorState = STATE_FOLLOW_COLOR_INTENSITY;
     generator.setParams(signal, freq, phase, randomComponent,Amin, Amax);
+}
+
+void ColorLight::FollowAudioSignal(float *audioSignal){
+    myColorState = STATE_FOLLOW_AUDIO;
+    myAudioSignal = audioSignal;
 }
 

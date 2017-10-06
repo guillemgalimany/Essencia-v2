@@ -58,6 +58,9 @@ class Element{
         virtual void BeatColor(ofColor color, float fadeTime, ofColor baseColor){};
     
         virtual void FollowSignal(int Amin, int Amax, signalState signal, int freq, int phase, float randomComponent){};
+    
+        virtual void FollowAudioSignal(float* audioSignal){};
+
 
     
     

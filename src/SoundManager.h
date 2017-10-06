@@ -43,7 +43,7 @@ public:
     
     int		bufferSamples;
     
-    float 	* audioCh1;
+    float 	* audioCh1;     //punter a float
     float   * audioCh2;
 
     
@@ -53,6 +53,9 @@ public:
     Sample audioR;
     
     vector<Sample> HeartRateAudios;
+    
+    ofEvent<char> audioHasStopped;
+
     
     
 

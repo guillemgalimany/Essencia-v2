@@ -49,6 +49,8 @@ public:
     void setIntensity(unsigned char targetI, float fadeTime, int elementIndex);
     
     void makeElementsFollow(int Amin, int Amax, signalState signal, int freq, int phase, float randomComponent, int elementIndex);
+    
+    void makeElementsFollowAudio(float * audioSignal);
 
     
 };

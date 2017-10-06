@@ -38,6 +38,7 @@ public:
     void setHR(int HR);
     void setID(char ID_);
     int getClientPosition(){return clientPosition;};
+    char getID(){return ID;};
     void threadedFunction();
     
     

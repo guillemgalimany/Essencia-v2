@@ -43,6 +43,7 @@ public:
     int getUsersConnected(){return myUsers.size();};
     //void listenClients(pair <char,int> &a);
     void eventToOfApp(pair <char,int> &a);
+    void deleteUser(char userID);
     
 };
 #endif /* TCPNetworkManager_hpp */

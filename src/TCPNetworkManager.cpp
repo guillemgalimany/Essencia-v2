@@ -80,18 +80,16 @@ void TCPNetworkManager::update(){
             }
             
             
-            //we only want to update the text we have recieved there is data
+            //we only want to update the text we have recieved if there is data
             string str = TCP.receive(i);
             
             if(str.length() > 0){
                 
                 cout <<str<< endl;
-                //storeText[i] = str;
                 
                 timeSinceLastAlive[i] = ofGetElapsedTimef();        //time since last message, si reps qualsevol cosa tampoc facis fora...
-                //cout <<timeSinceLastAlive[i]<< endl;
                 
-                if (str != "Alive"){
+                if (str != "Alive\r"){
                     storeID = str[0];
                     str.erase(0, 1);
                     storeHR = atoi(str.c_str());
@@ -124,6 +122,8 @@ void TCPNetworkManager::update(){
                     //if (storeID == 'Z' && storeHR == 0) {
                     if (storeHR == 300) {
                             for (int j = 0; j < myUsers.size(); j++){
+                                
+                                // no esborrar usuari directament....
                                 if (myUsers[j]->getClientPosition() == i) {
                                     // abans d'eliminar usuari, fer trigger final!
                                     myUsers.erase(myUsers.begin()+j);
@@ -164,6 +164,25 @@ void TCPNetworkManager::update(){
 //
 void TCPNetworkManager::eventToOfApp(pair <char,int> &a){
     ofNotifyEvent(triggerToApp, a);
+};
+
+
+void TCPNetworkManager::deleteUser(char userID){
+    
+    storeHR = 300;
+    
+    for (int j = 0; j < myUsers.size(); j++){
+        if (myUsers[j]->getID() == userID){
+            myUsers.erase(myUsers.begin()+j);
+            timeSinceLastHR.erase(timeSinceLastHR.begin()+j);
+            cout << "User deleted" << endl;
+            pair <char,int> tempPair;
+            tempPair.first = storeID;
+            tempPair.second = storeHR;
+            ofNotifyEvent(triggerToApp, tempPair);
+        }
+    }
+    
 };
 
 
