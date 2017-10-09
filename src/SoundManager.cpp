@@ -135,15 +135,52 @@ void SoundManager::playHeartRateSound(char clientID, int HR){
 
 void SoundManager::audioRequested 	(float * output, int bufferSize, int nChannels){
     
+    float xSquared = 0;
+    float bufferRMS_ant = bufferRMS;
+    
     for (int i = 0; i < bufferSize; i++)
     {
         audioCh1[i] = output[i * nChannels    ] = audioL.update();
         //audioCh2[i] = output[i * nChannels + 1] = audioR.update();
+        xSquared = xSquared +(audioCh1[i]*audioCh1[i]);
+        
     }
     
-    if (audioL.getLength() != welcomeAudio.getLength()) {
+    float xMeanSquared = xSquared / bufferSize;
+    bufferRMS = sqrt(xMeanSquared);
+    bufferRMS = bufferRMS_ant*smooth + (1-smooth)*bufferRMS;
+    
+    
+
+    
+    if (audioL.getLength() != welcomeAudio.getLength()) {       //estem en el cas d'audio de heartRate
+        char ID = 'L';
+        if (audioL.getPosition()*100 > 15 && audioL.getPosition()*100 < 17){
+            ofLogNotice() << audioL.getPosition();
+            pair <char,int> tempPair;
+            tempPair.first = ID;
+            tempPair.second = 400;
+            ofNotifyEvent(audioHasReachedPos, tempPair);
+        }
+        
+        if (audioL.getPosition()*100 > 75 && audioL.getPosition()*100 < 77){
+            ofLogNotice() << audioL.getPosition();
+            pair <char,int> tempPair;
+            tempPair.first = ID;
+            tempPair.second = 500;
+            ofNotifyEvent(audioHasReachedPos, tempPair);
+        }
+        
+        if (audioL.getPosition()*100 > 90 && audioL.getPosition()*100 < 92){
+            ofLogNotice() << audioL.getPosition();
+            pair <char,int> tempPair;
+            tempPair.first = ID;
+            tempPair.second = 600;
+            ofNotifyEvent(audioHasReachedPos, tempPair);
+        }
+        
+        
         if (!audioL.getIsPlaying()){
-            char ID = 'L';
             ofNotifyEvent(audioHasStopped,ID);
             audioL = welcomeAudio;
         }

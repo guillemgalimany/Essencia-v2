@@ -33,11 +33,7 @@ public:
     void stopAllSounds(char clientID); //funcio que es crida quan algu envia un event
     void playHeartRateSound(char clientID, int HR); //funcio que es crida quan algu envia un event
     
-    
-
-    
-
-
+    float* getAudioRMS(){return &bufferRMS;};           //edu no sap si funciona
     
     ofSoundStream mySoundStream;
     
@@ -55,6 +51,10 @@ public:
     vector<Sample> HeartRateAudios;
     
     ofEvent<char> audioHasStopped;
+    ofEvent<pair <char,int>> audioHasReachedPos;
+    
+    float bufferRMS = 0;
+    int smooth = 0.7;
 
     
     

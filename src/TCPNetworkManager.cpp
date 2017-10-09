@@ -150,18 +150,6 @@ void TCPNetworkManager::update(){
 };
 
 
-
-//
-//void TCPNetworkManager::listenClients(pair <char,int> &a){
-//    char clientID = a.first;
-//    //TCP.send(a.second, "A");
-//    //cout<< "vibra!!" << endl;
-//    //Event cap a ofApp: ofApp esta escoltant triggerToApp
-//    ofNotifyEvent(triggerToApp, clientID);
-//};
-
-
-//
 void TCPNetworkManager::eventToOfApp(pair <char,int> &a){
     ofNotifyEvent(triggerToApp, a);
 };

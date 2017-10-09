@@ -79,7 +79,18 @@ void ColorLight::update(){
             break;
         }
         case STATE_FOLLOW_AUDIO:{
-            ofLogNotice() << &(myAudioSignal);
+            //ofLogNotice() << *(myAudioSignal);
+            
+            float hue = 0;  // The hue value to set.
+            float saturation = 0; // The saturation value to set.
+            float brightness = 0; // The brightness value to set.
+            myColor.getHsb(hue, saturation, brightness);
+            
+            brightness = ofMap(*myAudioSignal, 0, 0.6, 0, 255);
+            
+            myColor.setHsb(initialColor.getHue(), initialColor.getSaturation(), brightness);
+            AssignMyColor();
+            
         
         
         }
@@ -110,7 +121,7 @@ void ColorLight::AssignMyColor()
 
 
 
-void ColorLight::SetColor(ofColor color, float fadeTime){
+void ColorLight::SetColor(ofColor color, float fadeTime = 0){
     
     
     myColorState = STATE_FADING_TO_COLOR;
@@ -133,6 +144,11 @@ void ColorLight::SetColor(ofColor color, float fadeTime){
             *i = myColor.a;
     
     }
+    
+    myColor.r = *r;
+    myColor.g = *g;
+    myColor.b = *b;
+    
     
 
 }
@@ -165,7 +181,10 @@ void ColorLight::FollowSignal(int Amin, int Amax, signalState signal, int freq, 
     generator.setParams(signal, freq, phase, randomComponent,Amin, Amax);
 }
 
+
+
 void ColorLight::FollowAudioSignal(float *audioSignal){
+    initialColor = myColor;
     myColorState = STATE_FOLLOW_AUDIO;
     myAudioSignal = audioSignal;
 }

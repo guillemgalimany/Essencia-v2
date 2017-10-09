@@ -17,7 +17,7 @@ void LightManager::setup()
     
     Tweenzor::init();
     
-    int numGroups = 4;
+    int numGroups = 1;
     groups.resize(numGroups);
     
     groups[0].AddElement(LIGHT_COLOR,5,"RGB");

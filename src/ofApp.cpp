@@ -7,19 +7,25 @@ void ofApp::setup(){
     //we run at 60 fps!
     ofSetVerticalSync(true);
     
+    
+    colorPalette.push_back(ofColor(255,255,255));
+    colorPalette.push_back(ofColor(150,0,255));
+    colorPalette.push_back(ofColor(0,0,255));
+    colorPalette.push_back(ofColor(255,0,0));
+    
+    myActualColor = colorPalette[round(ofRandom(0, 3))];
+    
     TCPManager.setup();
     ofAddListener(TCPManager.triggerToApp, this, &ofApp::triggerSoundLights);
 
     
     soundManager.setup();
     ofAddListener(soundManager.audioHasStopped, this, &ofApp::forceDeleteUser);
+    ofAddListener(soundManager.audioHasReachedPos, this, &ofApp::triggerSoundLights);
     
     manager.setup();
+    manager.setGroupColor(0, myActualColor, 0.0);
     
-    
-    manager.setGroupColor(0, ofColor(0,255,0), 0.0);
-    
-
 
 
 }
@@ -37,53 +43,9 @@ void ofApp::update(){
     numUsersConnected = TCPManager.getUsersConnected();
     
     if (firstUpdate){
-        manager.makeGroupFollow(0, 50, 255, STATE_SIN, 1.5, 0, 0.01);
+        manager.makeGroupFollow(0, 50, 255, STATE_SIN, 1.5, 45, 0.01);
         firstUpdate = false;
     }
-
-    
-    //manager.makeGroupFollow(0, 50, 100, STATE_SIN, 1, 0, 0.01);
-    //manager.makeGroupFollow(1, 50, 100, STATE_SIN, 1, 45, 0.01);
-    //manager.makeGroupFollow(2, 50, 100, STATE_SIN, 1, 90, 0.01);
-
-
-    /*switch (numUsersConnected) {
-        case 0:
-            //Sonar audio fons
-            //Llums fons a tope
-            
-            manager.makeGroupFollow(3, 100, 255, STATE_SIN, 1, 0, 0.01);
-
-
-            
-            break;
-        case 1:
-            //soundManager.stopSound
-            //Llums fons intensitat 1
-            
-            manager.makeGroupFollow(3, 20, 200, STATE_SIN, 1, 0, 0.01);
-
-
-            
-            break;
-        case 2:
-            //soundManager.stopSound
-            //Llums fons intensitat 2
-            
-            manager.makeGroupFollow(3, 20, 200, STATE_SIN, 1, 0, 0.01);
-
-            break;
-        case 3:
-            //soundManager.stopSound
-            //Llums fons intensitat 3
-            
-            manager.makeGroupFollow(3, 20, 150, STATE_SIN, 1, 0, 0.01);
-
-            break;
-            
-        default:
-            break;
-    }*/
     
 };
 
@@ -97,39 +59,36 @@ void ofApp::triggerSoundLights(pair <char,int> &a){
     int typeTrigger = a.second;
     
     if (typeTrigger == 0) {
+        myActualColor = colorPalette[round(ofRandom(0, 3))];
         soundManager.playWelcomeSound(ID);
-        //manager.makeGroupBeatColor(0, ofColor(255,0,30), ofColor(8,0,1));
-        //manager.setGroupColor(0, ofColor(255,0,0), 0.0, 0);
-        //manager.makeGroupFollow(0, 100, 255,STATE_UPSAW, 2, 0, 0.02);
-        manager.setGroupColor(0, ofColor(0,0,0),1);
-        manager.setGroupColor(0, ofColor(255,0,0),0.5,1);
+        manager.setGroupColor(0, ofColor(0,0,0),1);     // Everyone turned off in 1s time
+        manager.setGroupColor(0, myActualColor,1,0);    // Set parLed 1 to its original color in 1s time
     }
     else if (typeTrigger == 300){
         soundManager.stopAllSounds(ID);
-        manager.setGroupColor(0, ofColor(255,0,0));
+        manager.setGroupColor(0, myActualColor);
         manager.makeGroupFollow(0, 100, 255,STATE_SIN, 1, 0, 0.02);
     }
-    else if (typeTrigger != 0 && typeTrigger != 300) {
-        ofLogNotice() << typeTrigger;
-        soundManager.playHeartRateSound(ID, typeTrigger);
-        //manager.makeGroupFollowAudio(0, soundManager.audioCh1);
-        manager.setGroupColor(0, ofColor(0,0,255));
+    
+    else if (typeTrigger == 400){
+        manager.makeGroupFollow(0, 100, 255,STATE_SIN, 1, 0, 0.02);
     }
     
+    else if (typeTrigger == 500){
+        manager.makeGroupFollowAudio(0, soundManager.getAudioRMS());
+    }
     
-//    if (ID == 'L')
-//    {
-//        manager.makeGroupBeatColor(0, ofColor(255,0,30), ofColor(8,0,1), 0.3 );
-//    }
-//    if (ID == 'M')
-//    {
-//        manager.makeGroupBeatColor(1, ofColor(255,0,51), ofColor(5,0,1), 0.3 );
-//    }
-//    if (ID == 'R')
-//    {
-//        manager.makeGroupBeatColor(2, ofColor(255,0,42), ofColor(6,0,1), 0.3 );
-//    }
-
+    else if (typeTrigger == 600){
+        manager.setGroupColor(0, ofColor(0,0,0),1);     // Everyone turned off in 1s time
+        manager.setGroupColor(0, myActualColor,1,0);    // Set parLed 1 to its original color in 1s time
+    }
+    
+    else{
+        ofLogNotice() << typeTrigger;
+        soundManager.playHeartRateSound(ID, typeTrigger);
+        manager.setGroupColor(0, myActualColor);
+        manager.makeGroupFollowAudio(0, soundManager.getAudioRMS());
+    }
     
 };
 

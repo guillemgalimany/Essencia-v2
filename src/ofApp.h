@@ -35,6 +35,10 @@ public:
     
     bool firstUpdate = true;
     
+    vector<ofColor> colorPalette;
+    
+    ofColor myActualColor;
+    
     
     
     
