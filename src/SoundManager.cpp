@@ -141,7 +141,7 @@ void SoundManager::audioRequested 	(float * output, int bufferSize, int nChannel
     for (int i = 0; i < bufferSize; i++)
     {
         audioCh1[i] = output[i * nChannels    ] = audioL.update();
-        //audioCh2[i] = output[i * nChannels + 1] = audioR.update();
+        audioCh2[i] = output[i * nChannels + 1] = audioL.update();
         xSquared = xSquared +(audioCh1[i]*audioCh1[i]);
         
     }
