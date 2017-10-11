@@ -22,7 +22,7 @@ void SoundManager::setup(){
     ofSoundStreamListDevices();
 
     
-    mySoundStream.setDeviceID(1);
+    mySoundStream.setDeviceID(0);
     //mySoundStream.setup(4, 0, sampleRate, 256, 4);
     //mySoundStream.setup(4, 0, sampleRate, 256, 4);
     mySoundStream.setup(2, 0, sampleRate, 256, 2);
@@ -171,7 +171,7 @@ void SoundManager::audioRequested 	(float * output, int bufferSize, int nChannel
             ofNotifyEvent(audioHasReachedPos, tempPair);
         }
         
-        if (audioL.getPosition()*100 > 90 && audioL.getPosition()*100 < 92){
+        if (audioL.getPosition()*100 > 87 && audioL.getPosition()*100 < 89){
             ofLogNotice() << audioL.getPosition();
             pair <char,int> tempPair;
             tempPair.first = ID;
