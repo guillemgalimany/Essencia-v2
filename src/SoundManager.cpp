@@ -120,6 +120,7 @@ void SoundManager::playHeartRateSound(char clientID, int HR){
     
     if( clientID == 'L') {
         audioL = HeartRateAudios[songIdx];
+        ofLogNotice() << "Song Index" << songIdx;
         audioL.play();
     }
     

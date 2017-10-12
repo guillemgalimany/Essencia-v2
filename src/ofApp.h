@@ -34,6 +34,9 @@ public:
     int numUsersConnected = 0;
     
     bool firstUpdate = true;
+    bool isSoundPlaying = false;
+    bool isWelcomeSoundPlaying = false;
+    bool userJustLeaving = true;
     
     vector<ofColor> colorPalette;
     
