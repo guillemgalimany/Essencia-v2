@@ -86,7 +86,18 @@ void ColorLight::update(){
             float brightness = 0; // The brightness value to set.
             myColor.getHsb(hue, saturation, brightness);
             
-            brightness = ofMap(*myAudioSignal, 0, 0.6, 0, 255);
+//            int minMapBrightness = 15;
+//            int minBrightness = 150;
+//            int maxBrightness = 200;
+            brightness = ofMap(*myAudioSignal, 0, 0.6, 15, 255);
+            
+            if (brightness < 30)
+                brightness = 15;
+            
+//            if ((brightness > minBrightness) && (brightness < maxBrightness))
+//                brightness = brightness;
+//            else
+//                brightness = 0;
             
             myColor.setHsb(initialColor.getHue(), initialColor.getSaturation(), brightness);
             AssignMyColor();

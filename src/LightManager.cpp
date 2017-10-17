@@ -17,10 +17,12 @@ void LightManager::setup()
     
     Tweenzor::init();
     
-    int numGroups = 1;
+    int numGroups = 2;
     groups.resize(numGroups);
     
     groups[0].AddElement(LIGHT_COLOR,5,"RGB");
+    groups[1].AddElement(LIGHT_COLOR,1,"RGB");
+    groups[1].setInitChannel(25);       //parled inside peana ---- ch25
 
 }
 

@@ -22,7 +22,7 @@ void SoundManager::setup(){
     ofSoundStreamListDevices();
 
     
-    mySoundStream.setDeviceID(1);
+    mySoundStream.setDeviceID(0);
     //mySoundStream.setup(4, 0, sampleRate, 256, 4);
     //mySoundStream.setup(4, 0, sampleRate, 256, 4);
     mySoundStream.setup(2, 0, sampleRate, 256, 2);
@@ -120,6 +120,7 @@ void SoundManager::playHeartRateSound(char clientID, int HR){
     
     if( clientID == 'L') {
         audioL = HeartRateAudios[songIdx];
+        ofLogNotice() << "Song Index" << songIdx;
         audioL.play();
     }
     
@@ -140,8 +141,8 @@ void SoundManager::audioRequested 	(float * output, int bufferSize, int nChannel
     
     for (int i = 0; i < bufferSize; i++)
     {
-        audioCh1[i] = output[i * nChannels    ] = audioL.update();
-        //audioCh2[i] = output[i * nChannels + 1] = audioR.update();
+        audioCh1[i] = output[i * nChannels] = audioL.update();
+        audioCh2[i] = output[i * nChannels +1] = audioCh1[i];
         xSquared = xSquared +(audioCh1[i]*audioCh1[i]);
         
     }
@@ -171,7 +172,7 @@ void SoundManager::audioRequested 	(float * output, int bufferSize, int nChannel
             ofNotifyEvent(audioHasReachedPos, tempPair);
         }
         
-        if (audioL.getPosition()*100 > 90 && audioL.getPosition()*100 < 92){
+        if (audioL.getPosition()*100 > 87 && audioL.getPosition()*100 < 89){
             ofLogNotice() << audioL.getPosition();
             pair <char,int> tempPair;
             tempPair.first = ID;
